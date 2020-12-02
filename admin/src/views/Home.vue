@@ -29,7 +29,7 @@
             <Submenu name="3">
               <template slot="title">
                 <Icon type="ios-analytics"></Icon>
-                起飞
+                吟游
               </template>
               <MenuItem name="3-1">Option 1</MenuItem>
               <MenuItem name="3-2">Option 2</MenuItem>
