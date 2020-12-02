@@ -14,10 +14,24 @@ const routes = [
         path: '/about',
         name: 'About',
         component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-      }
+      },
+      {
+        path: 'goodsList',
+        name: 'goodsList',
+        component: () => import(/* webpackChunkName: "GoodsList" */ '../views/Goods/GoodsList.vue')
+      },
+      {
+        path: 'usersList',
+        name: 'usersList',
+        component: () => import(/* webpackChunkName: "UsersList" */ '../views/User/UsersList.vue')
+      },      
+      {
+        path: 'orderList',
+        name: 'orderList',
+        component: () => import(/* webpackChunkName: "UsersList" */ '../views/Order/OrderList.vue')
+      }, 
     ]
-  },
-
+  }
 ]
 
 const router = new VueRouter({

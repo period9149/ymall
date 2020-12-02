@@ -3,7 +3,7 @@
     <Layout>
       <Header>
         <Menu mode="horizontal" theme="dark" active-name="1">
-          <div class="layout-logo"></div>
+          <div class="layout-logo">YMALL 后台管理系统</div>
         </Menu>
       </Header>
       <Layout>
@@ -14,37 +14,27 @@
                 <Icon type="ios-contact"></Icon>
                 用户管理
               </template>
-              <MenuItem name="1-1">Option 1</MenuItem>
-              <MenuItem name="1-2">Option 2</MenuItem>
-              <MenuItem name="1-3">Option 3</MenuItem>
+              <MenuItem name="1-1" to="/usersList">用户列表</MenuItem>
             </Submenu>
             <Submenu name="2">
               <template slot="title">
-                <Icon type="ios-keypad"></Icon>
-                阿克曼
+                <Icon type="md-appstore"></Icon>
+                商品管理
               </template>
-              <MenuItem name="2-1">Option 1</MenuItem>
-              <MenuItem name="2-2">Option 2</MenuItem>
+              <MenuItem name="2-1">分类管理</MenuItem>
+              <MenuItem name="2-2" to="/goodsList">商品列表</MenuItem>
             </Submenu>
             <Submenu name="3">
               <template slot="title">
-                <Icon type="ios-analytics"></Icon>
-                吟游
+                <Icon type="md-clipboard"></Icon>
+                订单管理
               </template>
-              <MenuItem name="3-1">Option 1</MenuItem>
-              <MenuItem name="3-2">Option 2</MenuItem>
+              <MenuItem name="3-1" to="/orderList">订单列表</MenuItem>
             </Submenu>
           </Menu>
         </Sider>
-        <Layout :style="{padding: '0 24px 24px'}">
-          <Breadcrumb :style="{margin: '24px 0'}">
-            <BreadcrumbItem>Home</BreadcrumbItem>
-            <BreadcrumbItem>Components</BreadcrumbItem>
-            <BreadcrumbItem>Layout</BreadcrumbItem>
-          </Breadcrumb>
-          <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
-            <router-view/>
-          </Content>
+        <Layout>
+          <router-view/>
         </Layout>
       </Layout>
     </Layout>
@@ -57,21 +47,15 @@
 </script>
 <style scoped>
   .layout{
-      border: 1px solid #d7dde4;
-      background: #f5f7f9;
-      position: relative;
-      border-radius: 4px;
-      overflow: hidden;
+    border: 1px solid #d7dde4;
+    background: #f5f7f9;
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
   }
   .layout-logo{
-      width: 100px;
-      height: 30px;
-      background: #5b6270;
-      border-radius: 3px;
-      float: left;
-      position: relative;
-      top: 15px;
-      left: 20px;
+    color:white; 
+    font-size: 20px;
   }
 </style>
 
