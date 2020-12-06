@@ -8,6 +8,7 @@
       <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
         <Input suffix="ios-search" placeholder="请输入..." style="width: auto; margin-bottom: 10px;" />
         <Table border :columns="columns" :data="users"></Table>
+        <Page :total="100" show-elevator align="center" style="margin-top: 10px;"/>
       </Content>
     </Layout>
   </div>

@@ -6,7 +6,25 @@
         <BreadcrumbItem>GoodsCategory</BreadcrumbItem>
       </Breadcrumb>
       <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
-        <Table border :columns="columns" :data="category"></Table>
+        <div style="margin-bottom: 10px;">
+          <Button type="primary" icon="md-add">添加分类</Button>
+          <Input suffix="ios-search" placeholder="请输入..." style="width: auto; margin-bottom: 10px; position: absolute; right: 50px;" />
+        </div>
+        <Table border :columns="columns" :data="categories"></Table>
+        <Page :total="100" show-elevator align="center" style="margin-top: 10px;"/>
+        <Modal
+          v-model="modal"
+          title="修改商品分类"
+          @on-ok="submitUpdate">
+          <Form :model="subCategory" label-position="left" :label-width="100" style="margin: 10px 20px;">
+            <FormItem label="ID">
+              <Input v-model="subCategory.category_id" disabled/>
+            </FormItem>
+            <FormItem label="商品分类名">
+              <Input v-model="subCategory.category_name" />
+            </FormItem>
+          </Form>
+        </Modal>
       </Content>
     </Layout>
   </div>
@@ -73,7 +91,9 @@
             }
           }
         ],
-        category: []
+        categories: [],
+        subCategory: {},
+        modal: false
       }
     },
     methods: {
@@ -81,37 +101,33 @@
         this.$Modal.info({
           title: '分类信息',
           content: `
-            <p class='info'>ID：${this.category[index].category_id}</p>
-            <p class='info'>用户名：${this.category[index].category_name}</p>
+            <p class='info'>ID：${this.categories[index].category_id}</p>
+            <p class='info'>用户名：${this.categories[index].category_name}</p>
           `
         })
       },
-      // update (index) {
-      //   this.$Modal.info({
-      //     title: '分类信息',
-      //     content: `
-      //       <Form :model="formLeft" label-position="left" :label-width='100">
-      //         <FormItem label="ID">
-      //             <Input v-model="formLeft.input1" value=""></Input>
-      //         </FormItem>
-      //         <FormItem label="分类名">
-      //             <Input v-model="formLeft.input2" value='${this.category[index].category_name}'></Input>
-      //         </FormItem>
-      //       </Form>
-      //     `
-      //   })
-      // },
+      update (index) {
+        this.subCategory = this.categories[index]
+        this.modal = true 
+      },
+      submitUpdate () {
+        console.log(this.subCategory)
+      },
       remove (index) {
-        this.category.splice(index, 1);
+        this.categories.splice(index, 1);
       },
       getcategoryData(){
-        var category = [
+        var categories = [
           {
             category_id: '20001',
             category_name: '手机'
-          }
+          },
+          {
+            category_id: '20002',
+            category_name: '电脑'
+          },          
         ]
-        this.category = category
+        this.categories = categories
       }
     },
     created() {

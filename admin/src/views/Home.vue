@@ -21,7 +21,7 @@
                 <Icon type="md-appstore"></Icon>
                 商品管理
               </template>
-              <MenuItem name="2-1" to="/GoodsCategory">分类管理</MenuItem>
+              <MenuItem name="2-1" to="/goodsCategory">分类管理</MenuItem>
               <MenuItem name="2-2" to="/goodsList">商品列表</MenuItem>
             </Submenu>
             <Submenu name="3">
