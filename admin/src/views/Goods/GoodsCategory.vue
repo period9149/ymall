@@ -7,24 +7,34 @@
       </Breadcrumb>
       <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
         <div style="margin-bottom: 10px;">
-          <Button type="primary" icon="md-add">添加分类</Button>
+          <Button type="primary" icon="md-add" @click="add">添加分类</Button>
           <Input suffix="ios-search" placeholder="请输入..." style="width: auto; margin-bottom: 10px; position: absolute; right: 50px;" />
         </div>
         <Table border :columns="columns" :data="categories"></Table>
         <Page :total="100" show-elevator align="center" style="margin-top: 10px;"/>
         <Modal
-          v-model="modal"
+          v-model="updateModal"
           title="修改商品分类"
           @on-ok="submitUpdate">
-          <Form :model="subCategory" label-position="left" :label-width="100" style="margin: 10px 20px;">
+          <Form :model="updateCategory" label-position="left" :label-width="100" style="margin: 10px 20px;">
             <FormItem label="ID">
-              <Input v-model="subCategory.category_id" disabled/>
+              <Input v-model="updateCategory.category_id" disabled/>
             </FormItem>
             <FormItem label="商品分类名">
-              <Input v-model="subCategory.category_name" />
+              <Input v-model="updateCategory.category_name" />
             </FormItem>
           </Form>
         </Modal>
+        <Modal
+          v-model="addModal"
+          title="增加商品分类"
+          @on-ok="submitAdd">
+          <Form :model="addCategory" label-position="left" :label-width="100" style="margin: 10px 20px;">
+            <FormItem label="商品分类名">
+              <Input v-model="addCategory.category_name" />
+            </FormItem>
+          </Form>
+        </Modal>        
       </Content>
     </Layout>
   </div>
@@ -92,8 +102,12 @@
           }
         ],
         categories: [],
-        subCategory: {},
-        modal: false
+        updateCategory: {},
+        addCategory:{
+          category_name: ''
+        },
+        updateModal: false,
+        addModal: false
       }
     },
     methods: {
@@ -107,11 +121,17 @@
         })
       },
       update (index) {
-        this.subCategory = this.categories[index]
-        this.modal = true 
+        this.updateCategory = this.categories[index]
+        this.updateModal = true 
+      },
+      add (){
+        this.addModal = true
       },
       submitUpdate () {
-        console.log(this.subCategory)
+        console.log(this.updateCategory)
+      },
+      submitAdd(){
+        console.log(this.addCategory)
       },
       remove (index) {
         this.categories.splice(index, 1);
