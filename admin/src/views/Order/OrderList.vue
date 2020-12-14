@@ -101,7 +101,6 @@
             <p class='info'>商品型号：${this.orders[index].order_model}</p>
             <p class='info'>收货地址：${this.orders[index].order_address}</p>
             <p class='info'>订单状态：${this.orders[index].order_status}</p>
-            
           `
         })
       },
