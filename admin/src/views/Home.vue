@@ -31,6 +31,13 @@
               </template>
               <MenuItem name="3-1" to="/orderList">订单列表</MenuItem>
             </Submenu>
+            <Submenu name="4">
+              <template slot="title">
+                <Icon type="md-stats"></Icon>
+                统计分析
+              </template>
+              <MenuItem name="4-1" to="/statistics">用户分布</MenuItem>
+            </Submenu>
           </Menu>
         </Sider>
         <Layout>

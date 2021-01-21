@@ -19,12 +19,20 @@
               <label>用户名</label>
               <div class="input-group">
                 <span class="fa fa-envelope" aria-hidden="true"></span>
-                <input type="text" placeholder="请输入用户名..." v-model="userData.user_name"/>
+                <input
+                  type="text"
+                  placeholder="请输入用户名..."
+                  v-model="userData.user_name"
+                />
               </div>
               <label>密码</label>
               <div class="input-group">
                 <span class="fa fa-lock" aria-hidden="true"></span>
-                <input type="Password" placeholder="请输入密码..." v-model="userData.user_password"/>
+                <input
+                  type="Password"
+                  placeholder="请输入密码..."
+                  v-model="userData.user_password"
+                />
               </div>
               <div class="login-check">
                 <label class="checkbox">
@@ -32,7 +40,9 @@
                   记住密码
                 </label>
               </div>
-              <button class="btn btn-danger btn-block" @click="login()">Login</button>
+              <button class="btn btn-danger btn-block" @click="login()">
+                Login
+              </button>
             </Form>
             <p class="account">
               <a href="#">忘记密码？</a>
@@ -46,21 +56,21 @@
 </template>
 <script>
 export default {
-    data() {
-        return {
-            userData:{
-                user_name: '',
-                user_password: ''
-            }
-        }
+  data() {
+    return {
+      userData: {
+        user_name: "",
+        user_password: "",
+      },
+    };
+  },
+  methods: {
+    login() {
+      console.log(this.userData);
     },
-    methods: {
-        login(){
-            console.log(this.userData)
-        }
-    }
-}
+  },
+};
 </script>
 <style>
-@import url(../../assets/style/style.css); 
+@import url(../../assets/style/style.css);
 </style>

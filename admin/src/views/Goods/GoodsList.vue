@@ -28,7 +28,10 @@
           <FormItem label="商品类别">
             <Input v-model="updateGoods.product_category" />
           </FormItem>
-          <FormItem label="商品价格">
+          <FormItem label="商品成本">
+            <Input v-model="updateGoods.product_cost" />
+          </FormItem>          
+          <FormItem label="商品售价">
             <Input v-model="updateGoods.product_price" />
           </FormItem>
           <FormItem label="商品图片">
@@ -87,7 +90,10 @@
           <FormItem label="商品类别">
             <Input v-model="addGoods.product_category" />
           </FormItem>
-          <FormItem label="商品价格">
+          <FormItem label="商品成本">
+            <Input v-model="addGoods.product_cost" />
+          </FormItem>          
+          <FormItem label="商品售价">
             <Input v-model="addGoods.product_price" />
           </FormItem>
           <FormItem label="商品图片">
@@ -239,6 +245,7 @@
         addGoods:{
           product_title: '',
           product_category: '',
+          product_cost: '',
           product_price: '',
           product_image: '',
           product_details: '',
@@ -271,7 +278,8 @@
             <p class='info'>ID：${this.updateGoods.product_id}</p>
             <p class='info'>商品名称：${this.updateGoods.product_title}</p>
             <p class='info'>商品类别：${this.updateGoods.product_category}</p>
-            <p class='info'>商品价格：${this.updateGoods.product_price}</p>
+            <p class='info'>商品成本：${this.updateGoods.product_cost}</p>
+            <p class='info'>商品售价：${this.updateGoods.product_price}</p>
             <p class='info'>商品图片：</p>
             <img src='${this.updateGoods.product_image}' class='infoImg'>
             <p class='info'>商品详情：${this.updateGoods.product_details}</p>
@@ -295,6 +303,7 @@
             product_id: '30001',
             product_title: 'iPhone 7',
             product_category: '手机',
+            product_cost: '3800',
             product_price: '4000',
             product_image: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1531422177,3663112520&fm=26&gp=0.jpg',
             product_details: '测试用数据',
@@ -304,6 +313,7 @@
             product_id: '30002',
             product_title: 'MacBook Pro 13英寸',
             product_category: '电脑',
+            product_cost: '9800',
             product_price: '10000',
             product_image: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1607267487956&di=a9064e0cedafb0ffa64e5a4e5da7fe41&imgtype=0&src=http%3A%2F%2F2.zol-img.com.cn%2Fproduct%2F200_640x2000%2F156%2FceqGYae3II.jpg',
             product_details: '测试用数据',
