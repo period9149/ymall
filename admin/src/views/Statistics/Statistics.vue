@@ -6,7 +6,10 @@
         <BreadcrumbItem>Statistics</BreadcrumbItem>
       </Breadcrumb>
       <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
-        <div id="myChart" :style="{width: '300px', height: '300px'}"></div>
+          <div style="display: flex; justify-content: center; align-items: center">
+            <div id="gradeChart" :style="{width: '500px', height: '300px', margin: '0 50px 0 0'}"></div>
+            <div id="UniversityChart" :style="{width: '500px', height: '300px'}"></div>  
+          </div>
       </Content>
     </Layout>
   </div>
@@ -15,126 +18,117 @@
 var echarts = require('echarts')
 export default {
     data() {
+        return {
+            users:{
 
+            }
+        }
     },
     methods: {
         draw(){
-            var myChart = echarts.init(document.getElementById('myChart'))
-            let bgColor = '#fff';
-            let title = '总量';
-            let color = ['#0E7CE2', '#FF8352', '#E271DE', '#F8456B', '#00FFFF', '#4AEAB0'];
-            let echartData = [{
-                    name: "A类",
-                    value: "3720"
+            var gradeChart = echarts.init(document.getElementById('gradeChart'))
+            gradeChart.setOption({
+                title: {
+                    text: '用户年级分布图',
+                    padding: [20,20,40,40],
                 },
-                {
-                    name: "B类",
-                    value: "2920"
-                },
-                {
-                    name: "C类",
-                    value: "2200"
-                },
-                {
-                    name: "D类",
-                    value: "1420"
-                }
-            ];
-
-            let formatNumber = function(num) {
-                let reg = /(?=(\B)(\d{3})+$)/g;
-                return num.toString().replace(reg, ',');
-            }
-            let total = echartData.reduce((a, b) => {
-                return a + b.value * 1
-            }, 0);
-
-            var option = {
-                backgroundColor: bgColor,
-                color: color,
-                // tooltip: {
-                //     trigger: 'item'
-                // },
-                title: [{
-                    text: '{name|' + title + '}\n{val|' + formatNumber(total) + '}',
-                    top: 'center',
-                    left: 'center',
-                    textStyle: {
-                        rich: {
-                            name: {
-                                fontSize: 14,
-                                fontWeight: 'normal',
-                                color: '#666666',
-                                padding: [10, 0]
-                            },
-                            val: {
-                                fontSize: 32,
-                                fontWeight: 'bold',
-                                color: '#333333',
-                            }
-                        }
+                backgroundColor: '#FFFFFF',
+                visualMap: {
+                    show: false,
+                    min: 80,
+                    max: 600,
+                    inRange: {
+                        colorLightness: [0, 1]
                     }
-                },{
-                    text: '单位：个',
-                    top: 20,
-                    left: 20,
-                    textStyle: {
-                        fontSize: 14,
-                        color:'#666666',
-                        fontWeight: 400
-                    }
-                }],
-                series: [{
-                    type: 'pie',
-                    radius: ['45%', '60%'],
-                    center: ['50%', '50%'],
-                    data: echartData,
-                    hoverAnimation: false,
-                    itemStyle: {
-                        normal: {
-                            borderColor: bgColor,
-                            borderWidth: 2
-                        }
-                    },
-                    labelLine: {
-                        normal: {
-                            length: 20,
-                            length2: 120,
-                            lineStyle: {
-                                color: '#e6e6e6'
-                            }
-                        }
-                    },
-                    label: {
-                        normal: {
-                            formatter: params => {
-                                return (
-                                    '{icon|●}{name|' + params.name + '}{value|' +
-                                    formatNumber(params.value) + '}'
-                                );
-                            },
-                            padding: [0 , -100, 25, -100],
-                            rich: {
-                                icon: {
-                                    fontSize: 16
-                                },
-                                name: {
-                                    fontSize: 14,
-                                    padding: [0, 10, 0, 4],
-                                    color: '#666666'
-                                },
-                                value: {
-                                    fontSize: 18,
-                                    fontWeight: 'bold',
-                                    color: '#333333'
+                },
+                series : [
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        radius: '55%',
+                        data:[
+                            {value:235, name:'大一'},
+                            {value:274, name:'大二'},
+                            {value:310, name:'大三'},
+                            {value:335, name:'大四'},
+                            {value:400, name:'其他'}
+                        ],
+                        roseType: 'angle',
+                        label: {
+                            normal: {
+                                textStyle: {
+                                    color: 'rgba(0, 0, 0, 0.3)'
                                 }
                             }
+                        },
+                        labelLine: {
+                            normal: {
+                                lineStyle: {
+                                    color: 'rgba(255, 255, 255, 0.3)'
+                                }
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: '#c23531',
+                                shadowBlur: 200,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
                         }
-                    },
-                }]
-            };
-            myChart.setOption(option)  
+                    }
+                ]
+            })
+            var UniversityChart = echarts.init(document.getElementById('UniversityChart'))
+            UniversityChart.setOption({
+                title: {
+                    text: '用户学校分布图',
+                    padding: [20,20,40,40],
+                },
+                backgroundColor: '#FFFFFF',
+                visualMap: {
+                    show: false,
+                    min: 80,
+                    max: 600,
+                    inRange: {
+                        colorLightness: [0, 1]
+                    }
+                },
+                series : [
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        radius: '55%',
+                        data:[
+                            {value:235, name:'华农'},
+                            {value:274, name:'非华农'},
+                        ],
+                        roseType: 'angle',
+                        label: {
+                            normal: {
+                                textStyle: {
+                                    color: 'rgba(0, 0, 0, 0.3)'
+                                }
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                lineStyle: {
+                                    color: 'rgba(255, 255, 255, 0.3)'
+                                }
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: '#c23531',
+                                shadowBlur: 200,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            })            
         }
+            
     },
     mounted() {
         this.draw()
