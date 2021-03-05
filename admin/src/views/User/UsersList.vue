@@ -8,7 +8,7 @@
       <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
         <Input suffix="ios-search" placeholder="请输入..." style="width: auto; margin-bottom: 10px;" />
         <Table border :columns="columns" :data="users"></Table>
-        <Page :total="100" show-elevator align="center" style="margin-top: 10px;"/>
+        <Page :total="total" :current="page" :page-size="pageSize" @on-change="getUsersData" align="center" style="margin-top: 10px;"/>
       </Content>
     </Layout>
   </div>
@@ -20,11 +20,11 @@
         columns: [
           {
             title: 'ID',
-            key: 'user_id'
+            key: 'userId'
           },
           {
             title: '用户名',
-            key: 'user_name',
+            key: 'userName',
             render: (h, params) => {
               return h('div', [
                 h('Icon', {
@@ -32,27 +32,27 @@
                     type: 'person'
                   }
                 }),
-                h('strong', params.row.user_name)
+                h('strong', params.row.userName)
               ]);
             }
           },
           {
             title: '性别',
-            key: 'user_sex'
+            key: 'userSex'
           },
           {
             title: '手机号',
-            key: 'user_phone'
+            key: 'userPhone'
           },
           {
             title: '头像',
-            key: 'user_avatar',
+            key: 'userAvatar',
             align: 'center',
             render: (h, params) => {
               return h('div', [
                 h('img', {
                   attrs: {
-                    src: params.row.user_avatar
+                    src: params.row.userAvatar
                   },
                   style: {
                     width: '60px',
@@ -82,20 +82,6 @@
                     }
                   }
                 }, 'View'),
-                // h('Button', {
-                //   props: {
-                //     type: 'primary',
-                //     size: 'small'
-                //   },
-                //   style: {
-                //     marginRight: '5px'
-                //   },
-                //   on: {
-                //     click: () => {
-                //       this.update(params.index)
-                //     }
-                //   }
-                // }, 'Update'),
                 h('Button', {
                   props: {
                     type: 'error',
@@ -111,7 +97,10 @@
             }
           }
         ],
-        users: []
+        users: [],
+        page: 1,
+        pageSize: 10,
+        total: 0
       }
     },
     methods: {
@@ -119,53 +108,35 @@
         this.$Modal.info({
           title: '用户信息',
           content: `
-            <p class='info'>ID：${this.users[index].user_id}</p>
-            <p class='info'>用户名：${this.users[index].user_name}</p>
-            <p class='info'>性别：${this.users[index].user_sex}</p>
-            <p class='info'>手机号：${this.users[index].user_phone}</p>
+            <p class='info'>ID：${this.users[index].userId}</p>
+            <p class='info'>用户名：${this.users[index].userName}</p>
+            <p class='info'>性别：${this.users[index].userSex}</p>
+            <p class='info'>手机号：${this.users[index].userPhone}</p>
             <p class='info'>头像：</p>
-            <img src='${this.users[index].user_avatar}' class='infoImg'>
+            <img src='${this.users[index].userAvatar}' class='infoImg'>
+            <p class='info'>用户类别：${this.users[index].userAdmin}</p>
           `
         })
       },
-      // update (index) {
-      //   this.$Modal.info({
-      //     title: '用户信息',
-      //     content: `
-      //       <p class='info'>ID：${this.users[index].user_id}</p>
-      //       <p class='info'>用户名：<Input value='${this.users[index].user_name}'></Input></p>
-      //       <p class='info'>性别：<Input value='${this.users[index].user_sex}'></p>
-      //       <p class='info'>手机号：<Input value='${this.users[index].user_phone}'></p>
-      //       <p class='info'>头像：</p>
-      //       <img src='${this.users[index].user_avatar}' class='infoImg'>
-      //     `
-      //   })
-      // },
-      remove (index) {
-        this.users.splice(index, 1);
+      async remove (index) {
+        await this.$http.post('/users/delete', { "userId" : this.users[index].userId })
+        this.getUsersData(this.page)
+        this.$Message.success('删除成功！');
       },
-      getUsersData(){
-        var user = [
-          {
-            user_id: '10001',
-            user_name: 'John Brown',
-            user_sex: '男',
-            user_phone: '13235758569',
-            user_avatar: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2677998198,1166845148&fm=26&gp=0.jpg'
-          },
-          {
-            user_id: '10002',
-            user_name: 'kelly Brown',
-            user_sex: '女',
-            user_phone: '18267559149',
-            user_avatar: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1656466399,1422696951&fm=26&gp=0.jpg'
-          },
-        ]
-        this.users = user
+      async getUsersData(page){
+        const res = await this.$http.get('/users?currentPage='+ page)
+        const users = res.data.data.records
+        users.map(user => {
+          user.userSex = user.userSex == 1 ? '男' : '女'
+          user.userAdmin = user.userAdmin == 1 ? '系统管理员' : '普通用户'
+        })
+        this.users = users
+        this.total = res.data.data.total
+        this.pageSize = res.data.data.size
       }
     },
     created() {
-      this.getUsersData()
+      this.getUsersData(1)
     }
   }
 </script>

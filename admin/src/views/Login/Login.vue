@@ -2,7 +2,6 @@
   <div class="login">
     <div class="signupform">
       <div class="container">
-        <!-- main content -->
         <div class="agile_info">
           <div class="w3l_form">
             <div class="left_grid_info">
@@ -19,37 +18,20 @@
               <label>用户名</label>
               <div class="input-group">
                 <span class="fa fa-envelope" aria-hidden="true"></span>
-                <input
-                  type="text"
-                  placeholder="请输入用户名..."
-                  v-model="userData.user_name"
-                />
+                <input type="text" placeholder="请输入用户名..." v-model="userData.userName"/>
               </div>
               <label>密码</label>
               <div class="input-group">
                 <span class="fa fa-lock" aria-hidden="true"></span>
-                <input
-                  type="Password"
-                  placeholder="请输入密码..."
-                  v-model="userData.user_password"
-                />
+                <input type="Password" placeholder="请输入密码..." v-model="userData.userPassword"/>
               </div>
-              <div class="login-check">
-                <label class="checkbox">
-                  <input type="checkbox" name="checkbox" checked="" /><i> </i>
-                  记住密码
-                </label>
-              </div>
-              <button class="btn btn-danger btn-block" @click="login()">
-                Login
-              </button>
+              <button class="btn btn-danger btn-block" @click="login()">Login</button>
             </Form>
             <p class="account">
               <a href="#">忘记密码？</a>
             </p>
           </div>
         </div>
-        <!-- //main content -->
       </div>
     </div>
   </div>
@@ -59,14 +41,29 @@ export default {
   data() {
     return {
       userData: {
-        user_name: "",
-        user_password: "",
+        userName: "",
+        userPassword: "",
       },
     };
   },
   methods: {
-    login() {
-      console.log(this.userData);
+    async login() {
+      try{
+        const res = await this.$http.post('login', this.userData)
+        if(res.data.data.userAdmin == 0){
+          this.$Message.error('你不是系统管理员，请使用管理员账号登录！');
+        }else{
+          const token = res.headers['authorization']
+          this.$store.commit("setToken", token)
+          this.$store.commit("setUserInfo", res.data.data)
+          //console.log(this.$store.state.token, this.$store.state.userInfo)
+          this.$Message.success('登录成功！');
+          this.$router.push('/usersList')
+        }
+        console.log(res)
+      }catch(err){
+        console.log(err)
+      }
     },
   },
 };

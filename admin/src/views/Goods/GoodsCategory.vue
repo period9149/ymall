@@ -11,17 +11,17 @@
           <Input suffix="ios-search" placeholder="请输入..." style="width: auto; margin-bottom: 10px; position: absolute; right: 50px;" />
         </div>
         <Table border :columns="columns" :data="categories"></Table>
-        <Page :total="100" show-elevator align="center" style="margin-top: 10px;"/>
+        <Page :total="total" :current="page" :page-size="pageSize" @on-change="getcategoryData" show-elevator align="center" style="margin-top: 10px;"/>
         <Modal
           v-model="updateModal"
           title="修改商品分类"
           @on-ok="submitUpdate">
           <Form :model="updateCategory" label-position="left" :label-width="100" style="margin: 10px 20px;">
             <FormItem label="ID">
-              <Input v-model="updateCategory.category_id" disabled/>
+              <Input v-model="updateCategory.categoryId" disabled/>
             </FormItem>
             <FormItem label="商品分类名">
-              <Input v-model="updateCategory.category_name" />
+              <Input v-model="updateCategory.categoryName" />
             </FormItem>
           </Form>
         </Modal>
@@ -31,7 +31,7 @@
           @on-ok="submitAdd">
           <Form :model="addCategory" label-position="left" :label-width="100" style="margin: 10px 20px;">
             <FormItem label="商品分类名">
-              <Input v-model="addCategory.category_name" />
+              <Input v-model="addCategory.categoryName" />
             </FormItem>
           </Form>
         </Modal>        
@@ -46,11 +46,11 @@
         columns: [
           {
             title: 'ID',
-            key: 'category_id'
+            key: 'categoryId'
           },
           {
             title: '商品分类名',
-            key: 'category_name'
+            key: 'categoryName'
           },
           {
             title: '操作',
@@ -102,12 +102,18 @@
           }
         ],
         categories: [],
-        updateCategory: {},
+        updateCategory: {
+          categoryId: '',
+          categoryName: ''
+        },
         addCategory:{
-          category_name: ''
+          categoryName: ''
         },
         updateModal: false,
-        addModal: false
+        addModal: false,
+        page: 1,
+        pageSize: 10,
+        total: 0
       }
     },
     methods: {
@@ -115,8 +121,8 @@
         this.$Modal.info({
           title: '分类信息',
           content: `
-            <p class='info'>ID：${this.categories[index].category_id}</p>
-            <p class='info'>用户名：${this.categories[index].category_name}</p>
+            <p class='info'>ID：${this.categories[index].categoryId}</p>
+            <p class='info'>商品分类名：${this.categories[index].categoryName}</p>
           `
         })
       },
@@ -127,31 +133,32 @@
       add (){
         this.addModal = true
       },
-      submitUpdate () {
-        console.log(this.updateCategory)
+      async submitUpdate () {
+        await this.$http.post('/categories/edit', this.updateCategory)
+        this.getcategoryData(this.page)
+        this.$Message.success('修改成功！');
       },
-      submitAdd(){
-        console.log(this.addCategory)
+      async submitAdd(){
+        await this.$http.post('/categories/edit', this.addCategory)
+        this.getcategoryData(this.page)
+        this.$Message.success('添加成功！');
       },
-      remove (index) {
-        this.categories.splice(index, 1);
+      async remove(index) {
+        await this.$http.post('/categories/delete', { "categoryId" : this.categories[index].categoryId })
+        this.getcategoryData(this.page)
+        this.$Message.success('删除成功！');
       },
-      getcategoryData(){
-        var categories = [
-          {
-            category_id: '20001',
-            category_name: '手机'
-          },
-          {
-            category_id: '20002',
-            category_name: '电脑'
-          },          
-        ]
+      async getcategoryData(page){
+        const res = await this.$http.get('/categories?currentPage='+ page)
+        const categories = res.data.data.records
+        this.page = page
         this.categories = categories
+        this.total = res.data.data.total
+        this.pageSize = res.data.data.size
       }
     },
     created() {
-      this.getcategoryData()
+      this.getcategoryData(1)
     }
   }
 </script>
