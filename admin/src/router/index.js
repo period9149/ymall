@@ -18,13 +18,23 @@ const routes = [
             {
                 path: 'goodsList',
                 name: 'goodsList',
-                component: () => import(/* webpackChunkName: "GoodsList" */ '../views/Goods/GoodsList.vue')
+                component: () => import(/* webpackChunkName: "GoodsList" */ '../views/Goods/GoodsList.vue'),
             },
             {
                 path: 'goodsCategory',
                 name: 'goodsCategory',
                 component: () => import(/* webpackChunkName: "GoodsCategory" */ '../views/Goods/GoodsCategory.vue')
             },
+            {
+                path: 'goodsAdd',
+                name: 'goodsAdd',
+                component: () => import(/* webpackChunkName: "GoodsEdit" */ '../views/Goods/GoodsEdit.vue')
+            },
+            {
+                path: 'goodsUpdate/:id',
+                name: 'goodsUpdate',
+                component: () => import(/* webpackChunkName: "GoodsEdit" */ '../views/Goods/GoodsEdit.vue')
+            },            
             {
                 path: 'usersList',
                 name: 'usersList',

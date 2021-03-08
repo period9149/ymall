@@ -11,7 +11,7 @@
           <Input suffix="ios-search" placeholder="请输入..." style="width: auto; margin-bottom: 10px; position: absolute; right: 50px;" />
         </div>
         <Table border :columns="columns" :data="categories"></Table>
-        <Page :total="total" :current="page" :page-size="pageSize" @on-change="getcategoryData" show-elevator align="center" style="margin-top: 10px;"/>
+        <Page :total="total" :current="page" :page-size="pageSize" @on-change="getCategoryData" show-elevator align="center" style="margin-top: 10px;"/>
         <Modal
           v-model="updateModal"
           title="修改商品分类"
@@ -135,20 +135,20 @@
       },
       async submitUpdate () {
         await this.$http.post('/categories/edit', this.updateCategory)
-        this.getcategoryData(this.page)
+        this.getCategoryData(this.page)
         this.$Message.success('修改成功！');
       },
       async submitAdd(){
         await this.$http.post('/categories/edit', this.addCategory)
-        this.getcategoryData(this.page)
+        this.getCategoryData(this.page)
         this.$Message.success('添加成功！');
       },
       async remove(index) {
         await this.$http.post('/categories/delete', { "categoryId" : this.categories[index].categoryId })
-        this.getcategoryData(this.page)
+        this.getCategoryData(this.page)
         this.$Message.success('删除成功！');
       },
-      async getcategoryData(page){
+      async getCategoryData(page){
         const res = await this.$http.get('/categories?currentPage='+ page)
         const categories = res.data.data.records
         this.page = page
@@ -158,7 +158,7 @@
       }
     },
     created() {
-      this.getcategoryData(1)
+      this.getCategoryData(1)
     }
   }
 </script>
