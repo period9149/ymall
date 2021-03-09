@@ -148,17 +148,24 @@
         this.getGoodsData(this.page)
         this.$Message.success('删除成功！');
       },
+      async getCategoryName(id){
+        const res = await this.$http.get('/categories/' + id)
+        return res.data.data.categoryName
+      },
       async getGoodsData(page){
         const res = await this.$http.get('/products?currentPage='+ page)
         const goods = res.data.data.records
+        for(var i in goods) 
+          goods[i].productCategory = await this.getCategoryName(goods[i].productCategory)       
         this.page = page
         this.goods = goods
         this.total = res.data.data.total
         this.pageSize = res.data.data.size
-      },     
+      }
     },
     created() {
       this.getGoodsData(1)
+      this.getCategoryName(200002)
     }
   }
 </script>

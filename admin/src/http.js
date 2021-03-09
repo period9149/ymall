@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 
 const http = axios.create({
-    baseURL: 'http://localhost:8081'
+    baseURL: process.env.VUE_APP_API_URL
 })
 
 http.interceptors.request.use(config => {
