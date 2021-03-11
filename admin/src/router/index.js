@@ -17,37 +17,42 @@ const routes = [
             },
             {
                 path: 'goodsList',
-                name: 'goodsList',
+                name: 'GoodsList',
                 component: () => import(/* webpackChunkName: "GoodsList" */ '../views/Goods/GoodsList.vue'),
             },
             {
                 path: 'goodsCategory',
-                name: 'goodsCategory',
+                name: 'GoodsCategory',
                 component: () => import(/* webpackChunkName: "GoodsCategory" */ '../views/Goods/GoodsCategory.vue')
             },
             {
                 path: 'goodsAdd',
-                name: 'goodsAdd',
+                name: 'GoodsAdd',
                 component: () => import(/* webpackChunkName: "GoodsEdit" */ '../views/Goods/GoodsEdit.vue')
             },
             {
                 path: 'goodsUpdate/:id',
-                name: 'goodsUpdate',
+                name: 'GoodsUpdate',
                 component: () => import(/* webpackChunkName: "GoodsEdit" */ '../views/Goods/GoodsEdit.vue')
             },            
             {
                 path: 'usersList',
-                name: 'usersList',
+                name: 'UsersList',
                 component: () => import(/* webpackChunkName: "UsersList" */ '../views/User/UsersList.vue')
             },
             {
                 path: 'orderList',
-                name: 'orderList',
-                component: () => import(/* webpackChunkName: "UsersList" */ '../views/Order/OrderList.vue')
+                name: 'OrderList',
+                component: () => import(/* webpackChunkName: "OrderList" */ '../views/Order/OrderList.vue')
+            },
+            {
+                path: 'orderUpdate/:id',
+                name: 'OrderUpdate',
+                component: () => import(/* webpackChunkName: "OrderUpdate" */ '../views/Order/OrderUpdate.vue')
             },
             {
                 path: 'statistics',
-                name: 'statistics',
+                name: 'Statistics',
                 component: () => import(/* webpackChunkName: "Statistics" */ '../views/Statistics/Statistics.vue')
             }
         ]
