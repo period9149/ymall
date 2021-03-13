@@ -2,11 +2,11 @@
   <div class="OrderList">
     <Layout :style="{padding: '0 24px 24px'}">
       <Breadcrumb :style="{margin: '24px 0'}">
-        <BreadcrumbItem>Home</BreadcrumbItem>
-        <BreadcrumbItem>Order</BreadcrumbItem>
+        <BreadcrumbItem>主页</BreadcrumbItem>
+        <BreadcrumbItem>订单列表</BreadcrumbItem>
       </Breadcrumb>
       <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
-        <Input suffix="ios-search" placeholder="请输入..." style="width: auto; margin-bottom: 10px;" />
+        <Input suffix="ios-search" v-model="info" search @on-change="search" placeholder="请输入..." style="width: auto; margin-bottom: 10px;" />
         <Table border :columns="columns" :data="orders"></Table>
         <Page :total="total" :current="page" :page-size="pageSize" @on-change="getOrdersData" show-elevator align="center" style="margin-top: 10px;"/>
       </Content>
@@ -67,7 +67,7 @@
                       this.show(params.index)
                     }
                   }
-                }, 'View'),
+                }, '详情'),
                 h('Button', {
                   props: {
                     type: 'primary',
@@ -81,7 +81,7 @@
                       this.update(params.index)
                     }
                   }
-                }, 'Update')
+                }, '修改')
                 ]);
             }
           }
@@ -89,7 +89,8 @@
         orders: [],
         page: 1,
         total: 5,
-        pageSize: 5
+        pageSize: 5,
+        info: ''
       }
     },
     methods: {
@@ -145,6 +146,26 @@
           orders[i].orderStatus = orderStatus[`${orders[i].orderStatus}`]
         }   
         this.page = page
+        this.orders = orders
+        this.total = res.data.data.total
+        this.pageSize = res.data.data.size
+      },
+      async search(){
+        const res = await this.$http.get('/searchOrder?info='+ this.info)
+        const orders = res.data.data.records
+        let orderStatus = {
+          '0': '未付款',
+          '1': '未发货',
+          '2': '运输中',
+          '3': '已收货'
+        }  
+        for(var i in orders) {
+          orders[i].orderUser = await this.getUserName(orders[i].orderUser)
+          orders[i].orderProduct = await this.getProductName(orders[i].orderProduct)
+          orders[i].orderModel = await this.getModelName(orders[i].orderModel)
+          orders[i].orderAddress = await this.getAddressName(orders[i].orderAddress)
+          orders[i].orderStatus = orderStatus[`${orders[i].orderStatus}`]
+        }   
         this.orders = orders
         this.total = res.data.data.total
         this.pageSize = res.data.data.size

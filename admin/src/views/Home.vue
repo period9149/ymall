@@ -3,10 +3,22 @@
     <Layout>
       <Header>
         <Menu mode="horizontal" theme="dark" active-name="1">
-          <div class="layout-logo">YMALL 后台管理系统</div>
+          <div class="layout-menu">
+            <div class="layout-logo" style="flex: 1">
+              <span>YMALL 后台管理系统</span>
+            </div>
+            <div>    
+              <Poptip trigger="hover" :title=" '你好，' + adminInfo.userName + ' !'">
+                <img :src="adminInfo.userAvatar" class="layout-avatar">  
+                <div slot="content">
+                  <a @click="logout">退出登录</a>
+                </div>
+              </Poptip>
+            </div>          
+          </div>
         </Menu>
       </Header>
-      <Layout>
+      <Layout> 
         <Sider hide-trigger :style="{background: '#fff'}">
           <Menu active-name="1-2" theme="light" width="auto" :open-names="['1']">
             <Submenu name="1">
@@ -49,7 +61,24 @@
 </template>
 <script>
   export default {
-      
+    data(){
+      return{
+        adminInfo:{}
+      }
+    },
+    methods:{
+      getAdminInfo(){
+        this.adminInfo = this.$store.getters.getUser
+      },
+      async logout(){
+        
+        this.$store.commit('removeInfo')
+        this.$router.push('/login')
+      }
+    },
+    created(){
+      this.getAdminInfo()
+    }
   }
 </script>
 <style scoped>
@@ -60,9 +89,19 @@
     border-radius: 4px;
     overflow: hidden;
   }
+  .layout-menu{
+    display: flex; 
+    align-items: center;
+  }
   .layout-logo{
+    flex: 1;
     color:white; 
     font-size: 20px;
+  }
+  .layout-avatar{
+    height: 30px; 
+    width: 30px; 
+    vertical-align: middle;
   }
 </style>
 

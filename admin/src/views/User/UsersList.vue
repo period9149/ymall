@@ -2,11 +2,11 @@
   <div class="UsersList">
     <Layout :style="{padding: '0 24px 24px'}">
       <Breadcrumb :style="{margin: '24px 0'}">
-        <BreadcrumbItem>Home</BreadcrumbItem>
-        <BreadcrumbItem>Users</BreadcrumbItem>
+        <BreadcrumbItem to="/">主页</BreadcrumbItem>
+        <BreadcrumbItem>用户列表</BreadcrumbItem>
       </Breadcrumb>
       <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
-        <Input suffix="ios-search" placeholder="请输入..." style="width: auto; margin-bottom: 10px;" />
+        <Input suffix="ios-search" v-model="info" search @on-change="search" placeholder="请输入..." style="width: auto; margin-bottom: 10px;" />
         <Table border :columns="columns" :data="users"></Table>
         <Page :total="total" :current="page" :page-size="pageSize" @on-change="getUsersData" align="center" style="margin-top: 10px;"/>
       </Content>
@@ -81,7 +81,7 @@
                       this.show(params.index)
                     }
                   }
-                }, 'View'),
+                }, '详情'),
                 h('Button', {
                   props: {
                     type: 'error',
@@ -92,7 +92,7 @@
                       this.remove(params.index)
                     }
                   }
-                }, 'Delete')
+                }, '删除')
                 ]);
             }
           }
@@ -100,7 +100,8 @@
         users: [],
         page: 1,
         pageSize: 10,
-        total: 0
+        total: 0,
+        info: ''
       }
     },
     methods: {
@@ -125,6 +126,17 @@
       },
       async getUsersData(page){
         const res = await this.$http.get('/users?currentPage='+ page)
+        const users = res.data.data.records
+        users.map(user => {
+          user.userSex = user.userSex == 1 ? '男' : '女'
+          user.userAdmin = user.userAdmin == 1 ? '系统管理员' : '普通用户'
+        })
+        this.users = users
+        this.total = res.data.data.total
+        this.pageSize = res.data.data.size
+      },
+      async search(){
+        const res = await this.$http.get('/searchUser?info='+ this.info)
         const users = res.data.data.records
         users.map(user => {
           user.userSex = user.userSex == 1 ? '男' : '女'

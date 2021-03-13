@@ -2,13 +2,13 @@
   <div class="GoodsCategory">
     <Layout :style="{padding: '0 24px 24px'}">
       <Breadcrumb :style="{margin: '24px 0'}">
-        <BreadcrumbItem>Home</BreadcrumbItem>
-        <BreadcrumbItem>GoodsCategory</BreadcrumbItem>
+        <BreadcrumbItem to="/">主页</BreadcrumbItem>
+        <BreadcrumbItem>商品分类列表</BreadcrumbItem>
       </Breadcrumb>
       <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
         <div style="margin-bottom: 10px;">
           <Button type="primary" icon="md-add" @click="add">添加分类</Button>
-          <Input suffix="ios-search" placeholder="请输入..." style="width: auto; margin-bottom: 10px; position: absolute; right: 50px;" />
+          <Input suffix="ios-search" v-model="info" search @on-change="search" placeholder="请输入..." style="width: auto; margin-bottom: 10px; position: absolute; right: 50px;" />
         </div>
         <Table border :columns="columns" :data="categories"></Table>
         <Page :total="total" :current="page" :page-size="pageSize" @on-change="getCategoryData" show-elevator align="center" style="margin-top: 10px;"/>
@@ -71,7 +71,7 @@
                       this.show(params.index)
                     }
                   }
-                }, 'View'),
+                }, '详情'),
                 h('Button', {
                   props: {
                     type: 'primary',
@@ -85,7 +85,7 @@
                       this.update(params.index)
                     }
                   }
-                }, 'Update'),
+                }, '修改'),
                 h('Button', {
                   props: {
                     type: 'error',
@@ -96,7 +96,7 @@
                       this.remove(params.index)
                     }
                   }
-                }, 'Delete')
+                }, '删除')
                 ]);
             }
           }
@@ -113,7 +113,8 @@
         addModal: false,
         page: 1,
         pageSize: 10,
-        total: 0
+        total: 0,
+        info: ''
       }
     },
     methods: {
@@ -152,6 +153,13 @@
         const res = await this.$http.get('/categories?currentPage='+ page)
         const categories = res.data.data.records
         this.page = page
+        this.categories = categories
+        this.total = res.data.data.total
+        this.pageSize = res.data.data.size
+      },
+      async search(){
+        const res = await this.$http.get('/searchCategory?info='+ this.info)
+        const categories = res.data.data.records
         this.categories = categories
         this.total = res.data.data.total
         this.pageSize = res.data.data.size

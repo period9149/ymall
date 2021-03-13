@@ -2,9 +2,9 @@
   <div class="goodsEdit">
     <Layout :style="{padding: '0 24px 24px'}">
       <Breadcrumb :style="{margin: '24px 0'}">
-        <BreadcrumbItem>Home</BreadcrumbItem>
-        <BreadcrumbItem>Orders</BreadcrumbItem>
-        <BreadcrumbItem>Update</BreadcrumbItem>
+        <BreadcrumbItem>主页</BreadcrumbItem>
+        <BreadcrumbItem>订单列表</BreadcrumbItem>
+        <BreadcrumbItem>修改订单信息</BreadcrumbItem>
       </Breadcrumb>
       <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
         <Form :model="orderEdit" label-position="left" :label-width="100" style="margin: 10px 20px; width: 30rem">

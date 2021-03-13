@@ -2,13 +2,13 @@
   <div class="GoodsList">
     <Layout :style="{padding: '0 24px 24px'}">
       <Breadcrumb :style="{margin: '24px 0'}">
-        <BreadcrumbItem>Home</BreadcrumbItem>
-        <BreadcrumbItem>Goods</BreadcrumbItem>
+        <BreadcrumbItem to="/">主页</BreadcrumbItem>
+        <BreadcrumbItem>商品列表</BreadcrumbItem>
       </Breadcrumb>
       <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
         <div style="margin-bottom: 10px;">
           <Button type="primary" icon="md-add" to="goodsAdd">添加商品</Button>
-          <Input suffix="ios-search" placeholder="请输入..." style="width: auto; margin-bottom: 10px; position: absolute; right: 50px;" />
+          <Input suffix="ios-search" v-model="info" @on-change="search" search placeholder="请输入..." style="width: auto; margin-bottom: 10px; position: absolute; right: 50px;" />
         </div>
         <Table border :columns="columns" :data="goods"></Table>
         <Page :total="total" :current="page" :page-size="pageSize" @on-change="getGoodsData" show-elevator align="center" style="margin-top: 10px;"/>
@@ -84,7 +84,7 @@
                       this.show(params.index)
                     }
                   }
-                }, 'View'),
+                }, '详情'),
                 h('Button', {
                   props: {
                     type: 'primary',
@@ -98,7 +98,7 @@
                       this.update(params.index)
                     }
                   }
-                }, 'Update'),
+                }, '修改'),
                 h('Button', {
                   props: {
                     type: 'error',
@@ -109,7 +109,7 @@
                       this.remove(params.index)
                     }
                   }
-                }, 'Delete')
+                }, '删除')
                 ]);
             }
           }
@@ -117,7 +117,8 @@
         goods: [], // 商品列表
         total: 1,
         page: 1,
-        pageSize: 1
+        pageSize: 1,
+        info: ''
       }
     },
     methods: {
@@ -161,11 +162,19 @@
         this.goods = goods
         this.total = res.data.data.total
         this.pageSize = res.data.data.size
+      },
+      async search(){
+        const res = await this.$http.get('/searchProduct?info=' + this.info)
+        const goods = res.data.data.records
+        for(var i in goods) 
+          goods[i].productCategory = await this.getCategoryName(goods[i].productCategory)       
+        this.goods = goods
+        this.total = res.data.data.total
+        this.pageSize = res.data.data.size
       }
     },
     created() {
       this.getGoodsData(1)
-      this.getCategoryName(200002)
     }
   }
 </script>

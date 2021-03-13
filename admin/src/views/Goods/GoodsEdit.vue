@@ -2,10 +2,10 @@
   <div class="goodsEdit">
     <Layout :style="{padding: '0 24px 24px'}">
       <Breadcrumb :style="{margin: '24px 0'}">
-        <BreadcrumbItem>Home</BreadcrumbItem>
-        <BreadcrumbItem>Goods</BreadcrumbItem>
-        <BreadcrumbItem v-if="addOrUpdate">Add</BreadcrumbItem>
-        <BreadcrumbItem v-else>Update</BreadcrumbItem>
+        <BreadcrumbItem to="/">主页</BreadcrumbItem>
+        <BreadcrumbItem to="/goodsList">商品列表</BreadcrumbItem>
+        <BreadcrumbItem v-if="addOrUpdate">添加商品</BreadcrumbItem>
+        <BreadcrumbItem v-else>修改商品</BreadcrumbItem>
       </Breadcrumb>
       <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
         <Form :model="productEdit" :rules="ruleValidate" label-position="left" :label-width="100" style="margin: 10px 20px; width: 30rem">
@@ -72,11 +72,11 @@ export default {
       productEdit:{
         productTitle: '',
         productCategory: '',
-        productCost: 0,
+        productCost: '',
         productPrice: '',
         productDetails: '',
         productImage: '',
-        productSold: 0
+        productSold: ''
       },
       categories: [],
       addOrUpdate: true,
@@ -91,7 +91,8 @@ export default {
   },
   methods: {
     async getAddOrUpdate(){
-      this.addOrUpdate = this.$router.currentRoute.name == 'goodsAdd'
+      this.addOrUpdate = this.$router.currentRoute.name == 'GoodsAdd'
+      console.log(this.addOrUpdate)
       if(!this.addOrUpdate){
         let productId = this.$router.currentRoute.params.id
         const res = await this.$http.get('/products/' + productId)
