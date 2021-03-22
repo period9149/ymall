@@ -70,8 +70,7 @@
       getAdminInfo(){
         this.adminInfo = this.$store.getters.getUser
       },
-      async logout(){
-        
+      async logout(){        
         this.$store.commit('removeInfo')
         this.$router.push('/login')
       }
