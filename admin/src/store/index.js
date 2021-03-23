@@ -6,7 +6,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     token: localStorage.getItem('token'),
-    userInfo: JSON.parse(sessionStorage.getItem('userInfo'))
+    userInfo: JSON.parse(localStorage.getItem('userInfo'))
   },
   mutations: {
     setToken(state, token){
@@ -15,13 +15,13 @@ const store = new Vuex.Store({
     },
     setUserInfo(state, userInfo){
       state.userInfo = userInfo
-      sessionStorage.setItem("userInfo", JSON.stringify(userInfo))
+      localStorage.setItem("userInfo", JSON.stringify(userInfo))
     },
     removeInfo(state){
       state.token = ''
       state.userInfo = {}
       localStorage.setItem("token", '')
-      sessionStorage.setItem("userInfo", JSON.stringify({}))
+      localStorage.setItem("userInfo", JSON.stringify({}))
     }
   },
   getters:{
