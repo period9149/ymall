@@ -15,7 +15,7 @@
         <div class="custom-indicator">{{ current + 1 }}/4</div>
       </template>
     </van-swipe>
-    <h1 style="font-size: 100px">sb生花</h1>
+    <h2 class="m-3">{{ productInfo.productTitle }}</h2>
     <van-goods-action>
       <van-goods-action-icon icon="chat-o" text="客服" />
       <van-goods-action-icon icon="shop-o" text="店铺" />
@@ -29,6 +29,7 @@ export default {
   data() {
     return {
       current: 0,
+      productInfo: {}
     }
   },
   methods: {
@@ -36,8 +37,17 @@ export default {
       this.current = index;
     },
     onClickLeft(){
-
+      this.$router.go(-1)
+    },
+    async getProductInfo(){
+      const id = this.$router.currentRoute.params.id
+      const res = await this.$http.get('/products/' + id)
+      this.productInfo = res.data.data
+      console.log(this.productInfo)
     }
+  },
+  created() {
+    this.getProductInfo()
   },
 }
 </script>

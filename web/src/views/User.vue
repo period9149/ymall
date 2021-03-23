@@ -1,7 +1,7 @@
 <template>
   <div class="user">
     <van-nav-bar title="我的"/>
-    <div class="userCard bg-white d-flex ai-center" @click="login()">
+    <div class="userCard bg-white d-flex ai-center" @click="login">
       <div class="userAvatar ml-3">
         <img v-if="userInfo.userAvatar" :src="userInfo.userAvatar" alt="">
         <img v-else src="https://www.baidu.com/link?url=jm9-nHsGZHBrgnuD0mGm8uEH0jFT98i9dUq_DTvVJ4g6dozBmO-mR9h4tBr5g8wNYQJ8CHA5ggvPpjLh7UNusLkiGrde0yeBL57J4uI-OhGr48RHwtUYIQvQHzubbuXnyLBxGafDof2Bi4bexHp99yjGpCBWxTR7PUQh86tPVX9lfjy8C6Fr1ocH11MBSNR_EdNab0ZGyf2-gS7fIHGeH21fDSdGt27bGHj3ZysNvHw09OpwF1ckrMgC87Xxq9_zAroVsmF4FOlHr8HdXA-CJuQyBCivixeRCziVFZKNaYAPVMCwLHI3Sk2ASFDbYe39xgsqjRmS-mLXcBHSRXA2vO1JDSR3m0856HmOnD5TdLZTY0taA3nnnMGNDCoulB8kvRiNwXiNpD4vrdwER7W8MhKYlrZwsSnwgWLbi5wcyzyr_LljXcy-d5MHdyA40CHmnPZ-ll_34B6-HZrcVHnG0BstgiWIRkO39_87WXzoxa9N4GJ0LA669pEgtmIIPfmmiEXoc0W_y9NUs9IZWKApbcPoBZ1JX7j6NIeVwuNa5cTOvvSpco2MAe9UDxpS50DsHwmFdY6ejMbtdjEDBruAIn9rfZtbMFglXGsyyffT5QG&wd=&eqid=d52b8f570007c4a400000006605883c1" alt="">
@@ -43,21 +43,20 @@
 </template>
 
 <script>
-
 export default {
   name: 'User',
   data() {
     return {
-      userInfo: ''
+      userInfo: {}
     }
   },
   methods: {
     login(){
-      if(!this.userInfo) this.$router.push('/login')
+      if(JSON.stringify(this.userInfo) == "{}") this.$router.push('/login')
     },
     logout(){
       this.$store.commit('removeInfo')
-      this.userInfo = ''
+      this.userInfo = {}
     },
     getUserData(){
       if(this.$store.getters.getToken){

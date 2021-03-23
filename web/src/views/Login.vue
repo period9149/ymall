@@ -98,7 +98,6 @@ export default {
       try{
         const res = await this.$http.post('login', this.loginInfo)
         const token = res.headers.authorization
-        console.log(res)
         this.$store.commit("setToken", token)
         this.$store.commit("setUserInfo", res.data.data)
         this.$toast.success('登录成功！');
