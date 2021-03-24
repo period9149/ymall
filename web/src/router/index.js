@@ -41,7 +41,17 @@ const routes = [
     path: '/productDetail/:id',
     name: 'ProductDetail',
     component: () => import(/* webpackChunkName: "productDetail" */ '../views/product/ProductDetail.vue')
-  },  
+  }, 
+  {
+    path: '/addressList/:id',
+    name: 'AddressList',
+    component: () => import(/* webpackChunkName: "AddressList" */ '../views/address/AddressList.vue'),
+  },
+  {
+    path: '/addressEdit/:id',
+    name: 'AddressEdit',
+    component: () => import(/* webpackChunkName: "AddressEdit" */ '../views/address/AddressEdit.vue')    
+  } 
 ]
 
 const router = new VueRouter({

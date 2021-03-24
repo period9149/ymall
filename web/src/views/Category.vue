@@ -40,11 +40,9 @@ export default {
       let categories = []
       for(var i in temp){
         var obj = {
-          id: '',
-          text: ''
+          id: temp[i].categoryId,
+          text: temp[i].categoryName
         }
-        obj.id = temp[i].categoryId
-        obj.text = temp[i].categoryName
         categories.push(obj)
       }
       this.categories = categories

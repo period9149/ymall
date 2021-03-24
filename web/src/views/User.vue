@@ -24,16 +24,16 @@
       <van-grid-item icon="cash-back-record" text="收货/退款" />
     </van-grid>
     <van-cell-group class="mt-2">
-      <van-cell title="我的优惠券" icon="gold-coin">
-      </van-cell>
-          <van-cell title="我的收货地址" icon="vip-card">
+      <van-cell title="我的优惠券" icon="gold-coin"></van-cell>
+      <van-cell title="我的收货地址" icon="vip-card" @click="toAddressList()">
+        <template #right-icon>
+          <van-icon name="arrow" class="icon" />
+        </template>
       </van-cell>
     </van-cell-group>
     <van-cell-group class="mt-2">
-      <van-cell title="联系客服" icon="phone">
-      </van-cell>
-      <van-cell title="意见反馈" icon="comment-circle">
-      </van-cell>
+      <van-cell title="联系客服" icon="phone"></van-cell>
+      <van-cell title="意见反馈" icon="comment-circle"></van-cell>
     </van-cell-group>
     <van-cell-group class="mt-2">
       <van-cell title="退出登录" icon="clear" v-if="this.$store.getters.getToken" @click="logout">
@@ -62,6 +62,9 @@ export default {
       if(this.$store.getters.getToken){
         this.userInfo = this.$store.getters.getUser
       }
+    },
+    toAddressList(){
+      this.$router.push('/addressList/' + this.userInfo.userId)
     }
   },
   created() {
