@@ -7,45 +7,24 @@
       background="#4fc08d"
       placeholder="请输入搜索关键词"
     />
-    <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-      <van-swipe-item>1</van-swipe-item>
-      <van-swipe-item>2</van-swipe-item>
-      <van-swipe-item>3</van-swipe-item>
-      <van-swipe-item>4</van-swipe-item>
+    <van-swipe :autoplay="3000">
+      <van-swipe-item v-for="(item, index) in swipes" :key="index">
+        <img class="swipe" :src="item.swipeImage">
+      </van-swipe-item>
     </van-swipe>
     <van-grid>
-      <van-grid-item icon="photo-o" text="精选" />
-      <van-grid-item icon="photo-o" text="招牌" />
-      <van-grid-item icon="photo-o" text="折扣" />
-      <van-grid-item icon="photo-o" text="上新" />
+      <van-grid-item icon="hot" text="热卖"/>
+      <van-grid-item icon="youzan-shield" text="招牌"/>
+      <van-grid-item icon="gem" text="折扣"/>
+      <van-grid-item icon="new-arrival" text="上新"/>
     </van-grid>
-    <van-swipe-cell>
-      <van-card
-        price="2.00"
-        desc="描述信息"
-        title="商品标题"
-        class="goods-card"
-        thumb="https://img01.yzcdn.cn/vant/cat.jpeg"
-      />
-    </van-swipe-cell>
-    <van-swipe-cell>
-      <van-card
-        price="2.00"
-        desc="描述信息"
-        title="商品标题"
-        class="goods-card"
-        thumb="https://img01.yzcdn.cn/vant/cat.jpeg"
-      />
-    </van-swipe-cell>
-    <van-swipe-cell>
-      <van-card
-        price="2.00"
-        desc="描述信息"
-        title="商品标题"
-        class="goods-card"
-        thumb="https://img01.yzcdn.cn/vant/cat.jpeg"
-      />
-    </van-swipe-cell>
+    <div class="cardsList px-3">
+      <div v-for="(item, index) in products" :key="index" class="card my-2 bg-light" @click="toDetail(item.productId)">
+        <img :src="item.productImage" style="width: 100%; height: 180px;">
+        <h3 class="ml-2">{{ item.productTitle }}</h3>
+        <h4 class="ml-2 text-red">￥{{ item.productPrice }}</h4>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -59,21 +38,45 @@ export default {
         'https://img01.yzcdn.cn/vant/apple-1.jpg',
         'https://img01.yzcdn.cn/vant/apple-2.jpg',
       ],
-      value: ''
+      value: '',
+      products: [],
+      swipes:[]
     }
+  },
+  methods: {
+    async getProducts(){
+      const res = await this.$http.get('/products?currentPage='+ 1)
+      this.products = res.data.data.records
+    },
+    async getSwipes(){
+      const res = await this.$http.get('/swipes/all')
+      this.swipes = res.data.data
+    },
+    toDetail(id){
+      this.$router.push('/productDetail/' + id)
+    }
+  },
+  created() {
+    this.getProducts()
+    this.getSwipes()
   },
 }
 </script>
-<style scoped>
-  .my-swipe .van-swipe-item {
-    color: #fff;
-    font-size: 20px;
-    line-height: 150px;
-    text-align: center;
-    background-color: #39a9ed;
+<style scoped lang="scss">
+  .swipe{
+    width: 100%;
+    height: 150px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
   }
-  .goods-card {
-    margin: 0;
-    background-color: @white;
+  .cardsList{
+    display: grid;
+    grid-template-columns: repeat(2, 52%);
+    .card{
+      height: 250px;
+      width: 170px;
+      border-radius: 10px;
+    }
   }
 </style>
