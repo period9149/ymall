@@ -24,7 +24,11 @@
       <van-grid-item icon="cash-back-record" text="收货/退款" />
     </van-grid>
     <van-cell-group class="mt-2">
-      <van-cell title="我的优惠券" icon="gold-coin"></van-cell>
+      <van-cell title="我的优惠券" icon="gold-coin" to="/coupon">
+        <template #right-icon>
+          <van-icon name="arrow" class="icon" />
+        </template>        
+      </van-cell>
       <van-cell title="我的收货地址" icon="vip-card" @click="toAddressList()">
         <template #right-icon>
           <van-icon name="arrow" class="icon" />

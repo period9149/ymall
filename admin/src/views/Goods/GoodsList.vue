@@ -133,11 +133,15 @@
             <p class='info'>商品类别：${this.updateGoods.productCategory}</p>
             <p class='info'>商品成本：${this.updateGoods.productCost}</p>
             <p class='info'>商品售价：${this.updateGoods.productPrice}</p>
+            <p class='info'>商品折扣：${this.updateGoods.productSale}%</p>
             <p class='info'>商品图片：</p>
             <img src='${this.updateGoods.productImage}' class='infoImg'>
             <p class='info'>商品详情：${this.updateGoods.productDetails}</p>
+            <p class='info'>注意事项：${this.updateGoods.productAttention}</p>
+            <p class='info'>使用说明：${this.updateGoods.productInstructions}</p>
             <p class='info'>商品销量：${this.updateGoods.productSold}</p>
-          `
+          `,
+          width: '700'
         })
       },
       update (index) {

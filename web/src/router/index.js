@@ -48,9 +48,19 @@ const routes = [
     component: () => import(/* webpackChunkName: "AddressList" */ '../views/address/AddressList.vue'),
   },
   {
+    path: '/addressAdd',
+    name: 'AddressAdd',
+    component: () => import(/* webpackChunkName: "AddressEdit" */ '../views/address/AddressEdit.vue')     
+  },
+  {
     path: '/addressEdit/:id',
     name: 'AddressEdit',
     component: () => import(/* webpackChunkName: "AddressEdit" */ '../views/address/AddressEdit.vue')    
+  },
+  {
+    path: '/coupon',
+    name: 'Coupon',
+    component: () => import(/* webpackChunkName: "Coupon" */ '../views/coupon/Coupon.vue')   
   } 
 ]
 

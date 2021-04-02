@@ -54,7 +54,12 @@ const routes = [
                 path: 'statistics',
                 name: 'Statistics',
                 component: () => import(/* webpackChunkName: "Statistics" */ '../views/Statistics/Statistics.vue')
-            }
+            },
+            {
+                path: 'swipesList',
+                name: 'SwipesList',
+                component: () => import(/* webpackChunkName: "SwipesList" */ '../views/Index/SwipesList.vue')
+            },            
         ]
     },
     {

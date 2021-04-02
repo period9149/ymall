@@ -18,10 +18,13 @@
             </Select>
           </FormItem>
           <FormItem label="商品成本" prop="productCost">
-            <Input v-model="productEdit.productCost" />
-          </FormItem>          
+            <Input v-model="productEdit.productCost" prefix="logo-yen"/>
+          </FormItem>     
           <FormItem label="商品售价" prop="productPrice">
-            <Input v-model="productEdit.productPrice" />
+            <Input v-model="productEdit.productPrice" prefix="logo-yen"/>
+          </FormItem>         
+          <FormItem label="商品折扣" prop="productSale">
+            <Input v-model="productEdit.productSale" />
           </FormItem>
           <FormItem label="商品图片">
             <Upload
@@ -32,10 +35,10 @@
                 :max-size="2048"
                 type="drag"
                 action="http://localhost:8081/upload"
-                style="display: inline-block; width:50 px; height: 50px;"
+                style="display: inline-block; width: 150px; height: 150px;"
                 >
-                <img v-if="productEdit.productImage" :src="productEdit.productImage" class="avatar" style="height: 50px; width: 50px; ">                 
-                <div style="width: 58px;height:58px;line-height: 58px;" v-else>
+                <img v-if="productEdit.productImage" :src="productEdit.productImage" class="avatar" style="height: 150px; width: 150px; ">                 
+                <div style="width: 150px; height: 150px;line-height: 58px;" v-else>
                   <Icon type="ios-camera" size="20"></Icon>
                 </div>
             </Upload>
@@ -45,7 +48,13 @@
           </FormItem>
           <FormItem label="商品详情">
             <Input v-model="productEdit.productDetails" type="textarea"/>
-          </FormItem>        
+          </FormItem>      
+          <FormItem label="注意事项">
+            <Input v-model="productEdit.productAttention" type="textarea"/>
+          </FormItem> 
+          <FormItem label="使用说明">
+            <Input v-model="productEdit.productInstructions" type="textarea"/>
+          </FormItem>         
           <FormItem label="商品销量" v-if="!addOrUpdate" prop="productSold">
             <Input v-model="productEdit.productSold"/>
           </FormItem>   
@@ -74,9 +83,12 @@ export default {
         productCategory: '',
         productCost: '',
         productPrice: '',
+        productSale: '',
         productDetails: '',
         productImage: '',
-        productSold: ''
+        productSold: '',
+        productAttention: '',
+        productInstructions: ''
       },
       categories: [],
       addOrUpdate: true,

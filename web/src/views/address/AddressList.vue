@@ -11,8 +11,6 @@
   </div>
 </template>
 <script>
-import { Toast } from 'vant';
-
 export default {
   data() {
     return {
@@ -22,13 +20,13 @@ export default {
   },
   methods: {
     onAdd() {
-      Toast('新增地址');
+      this.$router.push('/addressAdd')
     },
     onEdit(item, index) {
       this.$router.push('/addressEdit/' + this.list[index].id)
     },
     onClickLeft(){
-      this.$router.go(-1)
+      this.$router.push('/user')
     },
     async getUserAddresses(){
       let userId = this.$store.getters.getUser.userId

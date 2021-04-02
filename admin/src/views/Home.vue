@@ -45,10 +45,17 @@
             </Submenu>
             <Submenu name="4">
               <template slot="title">
+                <Icon type="md-book"></Icon>
+                首页管理
+              </template>
+              <MenuItem name="4-1" to="/swipesList">轮播管理</MenuItem>
+            </Submenu>
+            <Submenu name="5">
+              <template slot="title">
                 <Icon type="md-stats"></Icon>
                 统计分析
               </template>
-              <MenuItem name="4-1" to="/statistics">用户分布</MenuItem>
+              <MenuItem name="5-1" to="/statistics">用户分布</MenuItem>
             </Submenu>
           </Menu>
         </Sider>
