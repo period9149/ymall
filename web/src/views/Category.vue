@@ -12,9 +12,9 @@
           <div class="flex-1">
             <h3>{{item.product_title}}</h3>
             <div class="mt-3">
-              <span class="text-red">￥{{item.product_price}}</span>
-              <s class="text ml-2">￥5.01</s>
-              <van-icon name="cart" color="red" size="16px" style="float: right" class="mr-3"/>
+              <span class="text-red">￥{{ item.product_price * item.product_sale / 100}}</span>
+              <s class="text ml-2" v-if="item.product_sale != 100">￥{{ item.product_price }}</s>
+              <!-- <van-icon name="cart" color="red" size="16px" style="float: right" class="mr-3"/> -->
             </div>
           </div>
         </div>     

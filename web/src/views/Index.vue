@@ -22,7 +22,7 @@
       <div v-for="(item, index) in products" :key="index" class="card my-2 bg-light" @click="toDetail(item.productId)">
         <img :src="item.productImage" style="width: 100%; height: 180px;">
         <h3 class="ml-2">{{ item.productTitle }}</h3>
-        <h4 class="ml-2 text-red">￥{{ item.productPrice }}</h4>
+        <h4 class="ml-2 text-red">￥{{ item.productPrice * item.productSale / 100 }}</h4>
       </div>
     </div>
   </div>

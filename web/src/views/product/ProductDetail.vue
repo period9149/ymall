@@ -6,15 +6,6 @@
       left-arrow
       @click-left="onClickLeft"
     />
-    <!-- <van-swipe @change="onChange" class="my-swipe">
-      <van-swipe-item>1</van-swipe-item>
-      <van-swipe-item>2</van-swipe-item>
-      <van-swipe-item>3</van-swipe-item>
-      <van-swipe-item>4</van-swipe-item>
-      <template #indicator>
-        <div class="custom-indicator">{{ current + 1 }}/4</div>
-      </template>
-    </van-swipe> -->
     <img :src="productInfo.productImage" class="photo">
     <h2 class="m-3">{{ productInfo.productTitle }}</h2>
     <div class="d-flex mb-2">
@@ -31,9 +22,9 @@
     <van-cell title="7天无理由退换" icon="checked" />
     <van-cell title="商品简介" size="large" :label="productInfo.productDetails" />
     <van-cell title="注意事项" size="large" :label="productInfo.productAttention" />
-    <van-cell title=使用说明 size="large" :label="productInfo.productInstructions" />
+    <van-cell title="使用说明" size="large" :label="productInfo.productInstructions" />
     <van-goods-action>
-      <van-goods-action-button type="warning" text="加入购物车" />
+      <van-goods-action-button type="warning" text="加入购物车" @click="addToCart"/>
       <van-goods-action-button type="danger" text="立即购买" />
     </van-goods-action>
   </div>
@@ -57,7 +48,9 @@ export default {
       const id = this.$router.currentRoute.params.id
       const res = await this.$http.get('/products/' + id)
       this.productInfo = res.data.data
-      console.log(this.productInfo)
+    },
+    async addToCart(){
+      this.$toast.success('添加成功！')
     }
   },
   computed: {

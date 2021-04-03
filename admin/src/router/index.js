@@ -34,7 +34,12 @@ const routes = [
                 path: 'goodsUpdate/:id',
                 name: 'GoodsUpdate',
                 component: () => import(/* webpackChunkName: "GoodsEdit" */ '../views/Goods/GoodsEdit.vue')
-            },            
+            },
+            {
+                path: 'goodsModels/:id',
+                name: 'GoodsModels',
+                component: () => import(/* webpackChunkName: "GoodsModels" */ '../views/Goods/GoodsModels.vue')
+            },              
             {
                 path: 'usersList',
                 name: 'UsersList',

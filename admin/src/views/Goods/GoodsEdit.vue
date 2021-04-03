@@ -58,10 +58,16 @@
           <FormItem label="商品销量" v-if="!addOrUpdate" prop="productSold">
             <Input v-model="productEdit.productSold"/>
           </FormItem>   
+          <FormItem v-if="!addOrUpdate">
+            <Button type="primary" shape="circle" @click="toModelSettings">
+              商品型号设置
+              <Icon type="ios-arrow-forward" />
+            </Button>
+          </FormItem> 
           <FormItem>
             <Button type="primary" @click.native="submitEdit">提交</Button>
-            <Button style="margin-left: 8px">返回</Button>
-          </FormItem>        
+            <Button style="margin-left: 8px" @click.native="$router.push('/goodsList')">返回</Button>
+          </FormItem>          
         </Form>          
       </Content>
     </Layout>
@@ -124,6 +130,9 @@ export default {
       const res = await this.$http.post('/products/edit', this.productEdit)
       this.$Message.success(res.data.msg)
       this.$router.push('/goodsList')
+    },
+    toModelSettings(){
+      this.$router.push('/goodsModels/' + this.$router.currentRoute.params.id)
     }
   },
   created() {
