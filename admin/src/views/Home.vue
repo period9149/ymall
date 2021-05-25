@@ -5,7 +5,7 @@
         <Menu mode="horizontal" theme="dark" active-name="1">
           <div class="layout-menu">
             <div class="layout-logo" style="flex: 1">
-              <span>YMALL 后台管理系统</span>
+              <span>智慧畜牧养殖在线物质平台-后台管理系统</span>
             </div>
             <div>    
               <Poptip trigger="hover" :title=" '你好，' + adminInfo.userName + ' !'">

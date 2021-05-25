@@ -11,16 +11,15 @@
         <span v-else>请先登录/注册！</span>
       </div>
     </div>
-    <van-cell title="我的订单" icon="label" class="mt-2">
-      <!-- 使用 right-icon 插槽来自定义右侧图标 -->
+    <van-cell title="我的订单" icon="label" class="mt-2" @click="toOrderList('a')">
       <template #right-icon>
         <van-icon name="arrow-down" class="icon" />
       </template>
     </van-cell>
     <van-grid>
-      <van-grid-item icon="cart-circle-o" text="待支付" />
-      <van-grid-item icon="gift-o" text="待收货" />
-      <van-grid-item icon="smile-comment-o" text="待评价" />
+      <van-grid-item icon="cart-circle-o" text="待支付" @click="toOrderList('b')"/>
+      <van-grid-item icon="gift-o" text="待收货" @click="toOrderList('c')"/>
+      <van-grid-item icon="smile-comment-o" text="已完成" @click="toOrderList('d')"/>
       <van-grid-item icon="cash-back-record" text="收货/退款" />
     </van-grid>
     <van-cell-group class="mt-2">
@@ -69,6 +68,9 @@ export default {
     },
     toAddressList(){
       this.$router.push('/addressList/' + this.userInfo.userId)
+    },
+    toOrderList(type){
+      this.$router.push('/orderList/' + type)
     }
   },
   created() {

@@ -6,7 +6,7 @@
           <div class="w3l_form">
             <div class="left_grid_info">
               <h1>欢迎使用</h1>
-              <h1>YMALL后台管理系统</h1>
+              <h1>智慧畜牧养殖在线物质平台-后台管理系统</h1>
               <p>登录后可使用商品管理，用户管理，订单管理，大数据调查等功能</p>
               <img src="../../assets/data.jpg" alt="你的网不行" />
             </div>

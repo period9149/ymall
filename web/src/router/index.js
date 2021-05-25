@@ -13,8 +13,13 @@ const routes = [
       {
         path: '/',
         name: 'Index',
-        component: () => import(/* webpackChunkName: "index" */ '../views/Index.vue')
+        component: () => import(/* webpackChunkName: "index" */ '../views/index/Index.vue')
       },
+      {
+        path: '/search',
+        name: 'Search',
+        component: () => import(/* webpackChunkName: "search" */ '../views/index/Search.vue')
+      },      
       {
         path: '/categories',
         name: 'Category',
@@ -40,8 +45,19 @@ const routes = [
   {
     path: '/productDetail/:id',
     name: 'ProductDetail',
-    component: () => import(/* webpackChunkName: "productDetail" */ '../views/product/ProductDetail.vue')
-  }, 
+    component: () => import(/* webpackChunkName: "productDetail" */ '../views/product/ProductDetail.vue'),
+
+  },  
+  {
+    path: '/productBuy',
+    name: 'ProductBuy',
+    component: () => import(/* webpackChunkName: "productBuy" */ '../views/product/ProductBuy.vue'),
+  },
+  {
+    path: 'success',
+    name: 'Success',
+    component: () => import(/* webpackChunkName: "Success" */ '../views/product/Success.vue'),
+  },
   {
     path: '/addressList/:id',
     name: 'AddressList',
@@ -57,11 +73,22 @@ const routes = [
     name: 'AddressEdit',
     component: () => import(/* webpackChunkName: "AddressEdit" */ '../views/address/AddressEdit.vue')    
   },
+  
   {
     path: '/coupon',
     name: 'Coupon',
     component: () => import(/* webpackChunkName: "Coupon" */ '../views/coupon/Coupon.vue')   
-  } 
+  },
+  {
+    path: '/orderList/:type',
+    name: 'orderList',
+    component: () => import(/* webpackChunkName: "OrderList" */ '../views/order/OrderList.vue')   
+  },
+  {
+    path: '/orderDetails/:id',
+    name: 'orderDetails',
+    component: () => import(/* webpackChunkName: "OrderDetails" */ '../views/order/OrderDetails.vue')   
+  }  
 ]
 
 const router = new VueRouter({

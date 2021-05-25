@@ -1,8 +1,7 @@
 <template>
   <div class="login">
     <van-nav-bar
-      title="欢迎使用YMALL电子商城"
-      left-text="返回"
+      title="智慧畜牧养殖在线物质平台"
       left-arrow
       @click-left="onClickLeft"
       class="mb-2"

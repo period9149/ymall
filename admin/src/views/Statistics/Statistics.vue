@@ -2,8 +2,8 @@
   <div class="statistics">
     <Layout :style="{padding: '0 24px 24px'}">
       <Breadcrumb :style="{margin: '24px 0'}">
-        <BreadcrumbItem>Home</BreadcrumbItem>
-        <BreadcrumbItem>Statistics</BreadcrumbItem>
+        <BreadcrumbItem to="/">主页</BreadcrumbItem>
+        <BreadcrumbItem>用户分布</BreadcrumbItem>
       </Breadcrumb>
       <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
           <div style="display: flex; justify-content: center; align-items: center">

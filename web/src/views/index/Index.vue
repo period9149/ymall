@@ -1,11 +1,12 @@
 <template>
   <div class="index">
-    <van-nav-bar title="YMALL电子商城"/>
+    <van-nav-bar title="智慧畜牧养殖在线物质平台"/>
     <van-search
-      v-model="value"
+      v-model="keywords"
       shape="round"
       background="#4fc08d"
       placeholder="请输入搜索关键词"
+      @search="onSearch"
     />
     <van-swipe :autoplay="3000">
       <van-swipe-item v-for="(item, index) in swipes" :key="index">
@@ -34,11 +35,7 @@ export default {
   name: 'Home',
   data() {
     return {
-      images: [
-        'https://img01.yzcdn.cn/vant/apple-1.jpg',
-        'https://img01.yzcdn.cn/vant/apple-2.jpg',
-      ],
-      value: '',
+      keywords: '',
       products: [],
       swipes:[]
     }
@@ -54,6 +51,10 @@ export default {
     },
     toDetail(id){
       this.$router.push('/productDetail/' + id)
+    },
+    async onSearch(){
+      this.$router.push('/search?info=' + this.keywords)
+
     }
   },
   created() {

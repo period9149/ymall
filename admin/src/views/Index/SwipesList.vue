@@ -3,7 +3,7 @@
     <Layout :style="{padding: '0 24px 24px'}">
       <Breadcrumb :style="{margin: '24px 0'}">
         <BreadcrumbItem to="/">主页</BreadcrumbItem>
-        <BreadcrumbItem>用户列表</BreadcrumbItem>
+        <BreadcrumbItem>轮播管理</BreadcrumbItem>
       </Breadcrumb>
       <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
         <Table border :columns="columns" :data="swipes"></Table>
