@@ -67,7 +67,18 @@ export default {
     onClickLeft(){
       this.$router.go(-1)
     },
-    onSubmit(){
+    async onSubmit(){
+      var order = {
+        orderUser: this.$store.getters.getUser.userId,
+        orderAddress: this.addressId,
+        orderStatus: 0,
+        orderProduct: this.product.productId,
+        orderModel: this.model.modelId,
+        orderCount: this.count,
+        orderPay: this.model.modelPrice * this.count
+      }
+      console.log(order)
+      await this.$http.post('/orders/edit', order)
       this.$toast.success('购买成功')
       this.$router.push('/productDetail/' + this.product.productId)
     },
